@@ -13,10 +13,9 @@ pipeline {
 
         stage('publish') {
             steps {
-                sh "npm config set registry http://registry.npmjs.org"
-                sh "npm cache clean -f"
-                sh "npm start"
-                sh "npm run dopublish"
+                sh "npm version patch"
+                sh "//registry.npmjs.org/:_authToken=\"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\" >> .npmrc"
+                sh "npm publish"
             }
         }
 
