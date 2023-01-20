@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh "cat .npmrc"
                 //sh "npm whoami"
-                sh "npm version minor --no-git-tag-version"
+                //sh "npm version minor --no-git-tag-version"
                 sh "npm publish"
 
             }
