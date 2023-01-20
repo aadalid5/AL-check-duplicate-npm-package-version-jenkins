@@ -13,8 +13,6 @@ pipeline {
 
         stage('publish') {
             steps {
-                
-                sh "echo token: $NPM_TOKEN"
                 sh "cat .npmrc"
                 sh "npm whoami"
                 sh "npm version minor --no-git-tag-version"
