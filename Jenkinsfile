@@ -13,6 +13,9 @@ pipeline {
 
         stage('publish') {
             steps {
+                sh "npm config set registry http://registry.npmjs.org"
+                sh "npm cache clean -f"
+                sh "npm start"
                 sh "npm run dopublish"
             }
         }
