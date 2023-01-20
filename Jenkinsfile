@@ -13,13 +13,14 @@ pipeline {
 
         stage('publish') {
             steps {
-                echo "publish"
+                sh 'echo "//registry.npmjs.org/:_authToken=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" >> ~/.npmrc'
+                sh "publish"
             }
         }
 
         stage('post'){
             steps {
-                sh "postmessage"
+                sh "echo 'postmessage'"
             }
         }
     }
