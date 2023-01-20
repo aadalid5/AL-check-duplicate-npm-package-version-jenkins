@@ -13,8 +13,10 @@ pipeline {
 
         stage('publish') {
             steps {
-                withEnv(['NPM_TOKEN=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']) {
-                    sh "echo name: $NPM_TOKEN"
+                withEnv(['NPM_TOKEN=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']) {
+                    sh "echo token: $NPM_TOKEN"
+                    sh "echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' >> .npmrc"
+                    sh "git pull"
                     sh "npm whoami"
                     sh "npm version minor --no-git-tag-version"
                     sh "npm publish"
