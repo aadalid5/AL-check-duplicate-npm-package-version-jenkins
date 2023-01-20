@@ -14,7 +14,7 @@ pipeline {
         stage('publish') {
             steps {
                 sh 'echo "//registry.npmjs.org/:_authToken=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" >> ~/.npmrc'
-                sh "publish"
+                sh "npm publish"
             }
         }
 
