@@ -23,7 +23,7 @@ pipeline {
         stage('publish') {
             steps {
                 withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) {
-                    sh "git pull"
+                    sh "git pull https://github.com/aadalid5/aa2-package.git main"
                 }
 
                 script {
