@@ -34,7 +34,7 @@ pipeline {
                         sh "cat .npmrc"
                         sh "npm whoami"
 
-                        //sh "npm version minor"
+                        sh "npm version patch"
                         sh "npm publish"
                 }
 
