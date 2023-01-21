@@ -13,10 +13,12 @@ pipeline {
 
         stage('publish') {
             steps {
-                sh "cat .npmrc"
-                sh "npm whoami"
-                sh "npm version minor --no-git-tag-version"
-                sh "npm publish"
+                script {
+                    sh "cat .npmrc"
+                    sh "npm whoami"
+                    sh "npm version minor --no-git-tag-version"
+                    sh "npm publish"
+                }
 
             }
         }
