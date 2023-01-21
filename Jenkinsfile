@@ -6,9 +6,10 @@ pipeline {
     stages {
         stage('set remote'){
             steps{
-                script {
-                    sh 'git remote set-url origin git@github.com:aadalid5/aa2-package.git'
-
+                sshagent(["github-key-a-id"]){
+                    script {
+                        sh 'git remote set-url origin git@github.com:aadalid5/aa2-package.git'
+                    }
                 }
             }
         }
@@ -24,7 +25,7 @@ pipeline {
                 withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) {
                     sh "git fetch"
                     sh "git checkout main"
-                    sh "git pull https://github.com/aadalid5/aa2-package.git main"
+                    sh "git pull"
                     sh "git reset --hard HEAD"
                 }
 
