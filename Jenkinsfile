@@ -40,7 +40,7 @@ pipeline {
 
                 withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) { 
                     script {
-                        sh "git push --no-verify"
+                        sh "git push --tag  --no-verify"
                     }
                 }
             }
