@@ -13,16 +13,24 @@ pipeline {
 
         stage('publish') {
             steps {
-                script {
-                    
-                        sh "cat .npmrc"
-                        sh "npm whoami"
-                        sh "npm version minor --no-git-tag-version"
-                        sh "npm publish"
-                    
+                withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) {
+                    sh "git pull"
                 }
 
+                script {
+                        sh "cat .npmrc"
+                        sh "npm whoami"
+                        sh "npm version minor"
+                        sh "npm publish"
+                }
+
+                withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) { 
+                    script {
+                        sh "git push --no-verify"
+                    }
+                }
             }
+
         }
 
         stage('post'){
