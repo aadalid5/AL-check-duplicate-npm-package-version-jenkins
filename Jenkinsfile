@@ -14,10 +14,13 @@ pipeline {
         stage('publish') {
             steps {
                 script {
-                    sh "cat .npmrc"
-                    sh "npm whoami"
-                    sh "npm version minor --no-git-tag-version"
-                    sh "npm publish"
+                    sh "echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' >> .npmrc"
+                    withEnv(["NPM_TOKEN=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"]) {
+                        sh "cat .npmrc"
+                        sh "npm whoami"
+                        sh "npm version minor --no-git-tag-version"
+                        sh "npm publish"
+                    }
                 }
 
             }
