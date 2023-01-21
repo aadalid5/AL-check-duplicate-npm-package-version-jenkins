@@ -4,6 +4,15 @@ pipeline {
     tools { nodejs "node" }
 
     stages {
+        stage('set remote'){
+            steps{
+                script {
+                    sh 'git remote set-url origin git@github.com:aadalid5/aa2-package.git'
+
+                }
+            }
+        }
+
         stage ('install') {
             steps {
                 sh 'node -v'
