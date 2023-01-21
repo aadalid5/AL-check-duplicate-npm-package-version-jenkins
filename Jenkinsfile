@@ -25,7 +25,7 @@ pipeline {
                 withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) {
                     sh "git fetch"
                     sh "git checkout main"
-                    sh "git pull https://github.com/aadalid5/aa2-package.git main"
+                    sh "git pull"
                     sh "git reset --hard HEAD"
                     
                 }
