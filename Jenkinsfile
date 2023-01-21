@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     sh "echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' >> .npmrc"
-                    withEnv(["NPM_TOKEN=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"]) {
+                    withEnv(["NPM_TOKEN=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"]) {
                         sh "cat .npmrc"
                         sh "npm whoami"
                         sh "npm version minor --no-git-tag-version"
