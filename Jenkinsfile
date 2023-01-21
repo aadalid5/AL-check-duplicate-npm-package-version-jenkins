@@ -16,14 +16,16 @@ pipeline {
         stage ('install') {
             steps {
                 sh 'node -v'
-                sh 'npm i'
             }
         }
 
         stage('publish') {
             steps {
                 withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) {
+                    sh "git fetch"
+                    sh "git checkout main"
                     sh "git pull https://github.com/aadalid5/aa2-package.git main"
+                    sh "git reset --hard HEAD"
                 }
 
                 script {
