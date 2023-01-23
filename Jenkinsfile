@@ -38,8 +38,12 @@ pipeline {
                         remoteVersion =  sh(script: "npm view . version", returnStdout: true)
                         sh "echo ${currentVersion}"
                         sh "echo ${remoteVersion}"
-                        //sh "npm version patch"
-                        //sh "npm publish"
+
+                        newVersion = generateReleaseVersion(buildType) // 0.0.17-pr.09b5f12
+                        sh "npm pkg set version=${newVersion}"
+
+                        // sh "npm version patch"
+                        sh "npm publish"
                 }
 
                 // withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) { 
@@ -58,4 +62,10 @@ pipeline {
             }
         }
     }
+}
+
+def generateReleaseVersion(type) {
+    def currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
+    def newVersion = "${currentVersion.trim()}-${type}.${env.shortHash}"
+    return newVersion
 }
