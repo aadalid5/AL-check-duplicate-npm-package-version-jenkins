@@ -39,14 +39,10 @@ pipeline {
                         try{
                             sh "npm publish"
                         }catch(error){
-                            //  if (isVersionDuplicated()){
-                            //     sh "echo 'Reason: Version ${newVersion} already exists '"
-                            //  }
-                            //  else {
-                            //     sh "echo 'Deploy aborted with exception' ${error}"
-                            // }
-                            // sh "exit 1"
-                            sh "echo 'ERROR ON PUBLISHING!!!!' ${error}"
+                             if (isVersionDuplicated()){
+                                sh "echo 'Reason: Version ${newVersion} already exists '"
+                             }
+                            sh "echo 'Deploy aborted with exception' ${error}"
                         }
                 }
             }
