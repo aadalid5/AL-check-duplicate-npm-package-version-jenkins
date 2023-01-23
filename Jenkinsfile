@@ -37,10 +37,21 @@ pipeline {
                         newVersion = generateReleaseVersion("pr") // 0.0.17-pr.09b5f12
                         sh "npm pkg set version=${newVersion}"
 
-                        if (isVersionDuplicated()){
-                            sh "echo 'Reason: Version ${newVersion} already exists '"
-                        } else {
+                        // if (isVersionDuplicated()){
+                        //     sh "echo 'Reason: Version ${newVersion} already exists '"
+                        // } else {
+                        //     sh "npm publish"
+                        // }
+
+                        try{
                             sh "npm publish"
+                        }catch(error){
+                             if (isVersionDuplicated()){
+                                sh "echo 'Reason: Version ${newVersion} already exists '"
+                             }
+                             else {
+                                sh "echo 'Deploy aborted with exception' ${error}"
+                        }
                         }
                 }
             }
