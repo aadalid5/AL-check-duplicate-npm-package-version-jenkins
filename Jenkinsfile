@@ -33,18 +33,13 @@ pipeline {
                 script {
                         sh "cat .npmrc"
                         sh "npm whoami"
+
                         newVersion = generateReleaseVersion("pr") // 0.0.17-pr.09b5f12
+                        sh "npm pkg set version=${newVersion}"
 
-                        currentVersion = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true)
-                        remoteVersion =  sh(script: "npm view . version", returnStdout: true)
-
-                        sh "echo 'newVersion' ${newVersion}"
-                        sh "echo 'currentVersion' ${currentVersion}"
-
-                        if (newVersion == remoteVersion){
-                            sh "echo 'Reason: Version ${currentVersion} already exists '"
+                        if (isVersionDuplicated()){
+                            sh "echo 'Reason: Version ${newVersion} already exists '"
                         } else {
-                            sh "npm pkg set version=${newVersion}"
                             sh "npm publish"
                         }
                 }
@@ -70,4 +65,14 @@ def getShortHash() {
     def shortID = readFile(".git/shortID").trim()
     sh "rm .git/shortID"
     shortID
+}
+
+def isVersionDuplicated(){
+    currentVersion = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true) // 0.0.17
+    remoteVersion =  sh(script: "npm view . version", returnStdout: true) // 0.0.17-pr.xyz
+
+    sh "echo 'currentVersion' ${currentVersion}"
+    sh "echo 'remoteVersion' ${remoteVersion}"
+
+    return currentVersion == remoteVersion
 }
