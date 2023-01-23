@@ -66,6 +66,13 @@ pipeline {
 
 def generateReleaseVersion(type) {
     def currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
-    def newVersion = "${currentVersion.trim()}-${type}.${env.shortHash}"
+    def newVersion = "${currentVersion.trim()}-${type}.${getShortHash()}"
     return newVersion
+}
+
+def getShortHash() {
+    sh "git rev-parse --short HEAD > .git/shortID"
+    def shortID = readFile(".git/shortID").trim()
+    sh "rm .git/shortID"
+    shortID
 }
