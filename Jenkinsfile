@@ -33,27 +33,22 @@ pipeline {
                 script {
                         sh "cat .npmrc"
                         sh "npm whoami"
-                        
+                        newVersion = generateReleaseVersion("pr") // 0.0.17-pr.09b5f12
+
                         currentVersion = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true)
                         remoteVersion =  sh(script: "npm view . version", returnStdout: true)
-                        sh "echo ${currentVersion}"
-                        sh "echo ${remoteVersion}"
 
-                        newVersion = generateReleaseVersion("pr") // 0.0.17-pr.09b5f12
-                        sh "npm pkg set version=${newVersion}"
+                        sh "echo 'newVersion' ${newVersion}"
+                        sh "echo 'currentVersion' ${currentVersion}"
 
-                        // sh "npm version patch"
-                        sh "npm publish"
+                        if (newVersion == remoteVersion){
+                            sh "echo 'Reason: Version ${currentVersion} already exists '"
+                        } else {
+                            sh "npm pkg set version=${newVersion}"
+                            sh "npm publish"
+                        }
                 }
-
-                // withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) { 
-                //     script {
-                //         sh "git push --no-verify"
-                //         sh "git push --tag  --no-verify"
-                //     }
-                // }
             }
-
         }
 
         stage('post'){
