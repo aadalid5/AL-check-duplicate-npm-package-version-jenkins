@@ -33,17 +33,21 @@ pipeline {
                 script {
                         sh "cat .npmrc"
                         sh "npm whoami"
-
-                        sh "npm version patch"
-                        sh "npm publish"
+                        
+                        currentVersion = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true)
+                        remoteVersion =  sh(script: "npm view . version", returnStdout: true)
+                        sh "echo ${currentVersion}"
+                        sh "echo ${remoteVersion}"
+                        //sh "npm version patch"
+                        //sh "npm publish"
                 }
 
-                withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) { 
-                    script {
-                        sh "git push --no-verify"
-                        sh "git push --tag  --no-verify"
-                    }
-                }
+                // withCredentials([gitUsernamePassword(credentialsId: 'git-hbrjenkins')]) { 
+                //     script {
+                //         sh "git push --no-verify"
+                //         sh "git push --tag  --no-verify"
+                //     }
+                // }
             }
 
         }
