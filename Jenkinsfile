@@ -46,7 +46,7 @@ pipeline {
                             //     sh "echo 'Deploy aborted with exception' ${error}"
                             // }
                             // sh "exit 1"
-                            sh "echo 'ERROR ON PUBLISHING!!!! ${error}"
+                            sh "echo 'ERROR ON PUBLISHING!!!!' ${error}"
                         }
                 }
             }
