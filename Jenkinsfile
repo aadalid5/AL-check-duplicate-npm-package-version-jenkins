@@ -39,7 +39,7 @@ pipeline {
                         sh "echo ${currentVersion}"
                         sh "echo ${remoteVersion}"
 
-                        newVersion = generateReleaseVersion(buildType) // 0.0.17-pr.09b5f12
+                        newVersion = generateReleaseVersion("pr") // 0.0.17-pr.09b5f12
                         sh "npm pkg set version=${newVersion}"
 
                         // sh "npm version patch"
