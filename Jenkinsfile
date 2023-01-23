@@ -44,7 +44,8 @@ pipeline {
                              }
                              else {
                                 sh "echo 'Deploy aborted with exception' ${error}"
-                        }
+                            }
+                            sh "exit 1"
                         }
                 }
             }
