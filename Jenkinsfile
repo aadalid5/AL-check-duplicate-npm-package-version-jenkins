@@ -31,17 +31,10 @@ pipeline {
                 }
 
                 script {
-                        sh "cat .npmrc"
                         sh "npm whoami"
 
-                        newVersion = generateReleaseVersion("pr") // 0.0.17-pr.09b5f12
+                        newVersion = generateReleaseVersion("pr")
                         sh "npm pkg set version=${newVersion}"
-
-                        // if (isVersionDuplicated()){
-                        //     sh "echo 'Reason: Version ${newVersion} already exists '"
-                        // } else {
-                        //     sh "npm publish"
-                        // }
 
                         try{
                             sh "npm publish"
@@ -79,11 +72,8 @@ def getShortHash() {
 }
 
 def isVersionDuplicated(){
-    currentVersion = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true) // 0.0.17
-    remoteVersion =  sh(script: "npm view . version", returnStdout: true) // 0.0.17-pr.xyz
+    current = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true) // 0.0.17
+    remote =  sh(script: "npm view . version", returnStdout: true) // 0.0.17-pr.xyz
 
-    sh "echo 'currentVersion' ${currentVersion}"
-    sh "echo 'remoteVersion' ${remoteVersion}"
-
-    return currentVersion == remoteVersion
+    return current == remote
 }
