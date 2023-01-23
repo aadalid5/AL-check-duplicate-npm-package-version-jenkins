@@ -42,7 +42,9 @@ pipeline {
                              if (isVersionDuplicated()){
                                 sh "echo 'Reason: Version ${newVersion} already exists '"
                              }
-                            sh "echo 'Deploy aborted with exception' ${error}"
+                             else {
+                                sh "echo 'Deploy aborted with exception' ${error}"
+                            }
                         }
                 }
             }
