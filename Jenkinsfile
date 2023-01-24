@@ -36,7 +36,7 @@ pipeline {
                         newVersion = generateReleaseVersion("pr")
                         sh "npm pkg set version=${newVersion}"
 
-                        if (isVersionDuplicated()){
+                        if (!isVersionDuplicated()){
                             try{
                                 sh "npm publish"
                             }catch(error){
@@ -44,7 +44,6 @@ pipeline {
                             }
                         } else {
                             sh "echo 'Reason: Version ${newVersion} already exists '"
-
                         }
                         
                 }
