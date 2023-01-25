@@ -4,16 +4,6 @@ pipeline {
     tools { nodejs "node" }
 
     stages {
-        stage('set remote'){
-            steps{
-                sshagent(["github-key-a-id"]){
-                    script {
-                        sh 'git remote set-url origin git@github.com:aadalid5/aa2-package.git'
-                    }
-                }
-            }
-        }
-
         stage ('install') {
             steps {
                 sh 'node -v'
@@ -32,10 +22,10 @@ pipeline {
                             try{
                                 sh "npm publish"
                             }catch(error){
-                                sh "echo 'Deploy aborted with exception' ${error}"
+                                sh "echo 'DEPLOY ABORTED WITH ERROR' ${error}"
                             }
                         } else {
-                            sh "echo 'Reason: Version ${newVersion} already exists '"
+                            sh "echo '**PUBLISHIN SKIPPED** REASON: Version ${newVersion} already exists '"
                         }
                         
                 }
