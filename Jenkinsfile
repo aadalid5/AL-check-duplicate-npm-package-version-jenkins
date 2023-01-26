@@ -54,17 +54,9 @@ def getShortHash() {
 }
 
 def isVersionDuplicated(){
-    def current = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true) // 0.0.17
-    // def remote
-    // remote =  sh(script: "npm view . version", returnStdout: true) // 0.0.17-pr.xyz
-    // sh "echo ${remote}"
-    // return current == remote
-    def isDuplicated
-    try{
-        sh "npm view aa2-package@${current}" // is duplicated
-        return true
-    } catch(error){
-        // is not duplicated
-        return false
-    }
+    def current = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true)
+    def remote =  sh(script: "npm view . version", returnStdout: true)
+    sh "echo 'CURRENT PR VERSION' ${current}"
+    sh "echo 'LATEST REMOTE VERSION' ${remote}"
+    return current == remote
 }
