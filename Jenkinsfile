@@ -58,14 +58,7 @@ def isVersionDuplicated(){
     
     try{
         def output = sh(script: """npm view aa2-package@${current}""", returnStdout:true ).trim()
-        sh "echo ${output[0]}"
-        if (output == null) {
-            sh "echo false"
-            return false
-        } else{
-            sh "echo true"
-            return true
-        }
+        return (output == null) ? false : true
     }catch(error) {
         sh "echo catch false"
         return false
