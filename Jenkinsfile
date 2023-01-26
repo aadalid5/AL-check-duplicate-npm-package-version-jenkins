@@ -56,10 +56,10 @@ def getShortHash() {
 def isVersionDuplicated(){
     def current = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true)
      
-    def output = sh(script sh "npm view aa2-package@${current}", returnStdout:true )
+    def output = sh(script sh "npm view aa2-package@${current}", returnStdout:true ).trim()
     sh "echo ${output}"
 
-    if (output) {
+    if (output != null) {
         return true // is duplicated
     } else{
         // is not duplicated
