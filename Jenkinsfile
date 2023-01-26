@@ -59,6 +59,12 @@ def isVersionDuplicated(){
     // remote =  sh(script: "npm view . version", returnStdout: true) // 0.0.17-pr.xyz
     // sh "echo ${remote}"
     // return current == remote
-
-    sh "npm view aa2-package"
+    def isDuplicated
+    try{
+        sh "npm view aa2-package@${current}" // is duplicated
+        return true
+    } catch(error){
+        // is not duplicated
+        return false
+    }
 }
