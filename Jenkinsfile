@@ -57,8 +57,8 @@ def isVersionDuplicated(){
     def current = sh(script: "node -p -e \"require('./package.json').version\"" , returnStdout: true)
     
     try{
-        def output = sh(script: """npm view aa2-package@${current}""", returnStdout:true ).trim()
-        echo "${output.length()}"
+        def output = sh(script: """npm view aa2-package@${current}""", returnStdout:true )
+        echo "${output}"
         return (output.length() == 0) ? false : true
     }catch(error) {
         sh "echo catch false"
