@@ -69,7 +69,7 @@ pipeline {
 }
 
 def cleanNpmrc() {
-    sh "sed -i '2d' .npmrc "
+    sh "sed '2d' .npmrc "
 }
 
 def generateReleaseVersion(type) {
