@@ -21,8 +21,6 @@ pipeline {
                     echo 'Hello Mr. ${username}'
                     echo "I said, Hello Mr. ${token}"
 
-                    sh "touch file.txt"
-                    sh "echo 'save-exact=true' >> file.txt"
                     sh "echo '//ae-qa-nexus-app01:8081/content/groups/npm-all/:_auth=${token}' >> file.txt"
                     sh "cat file.txt"
                 }
@@ -57,6 +55,12 @@ pipeline {
         //         sh "echo 'postmessage'"
         //     }
         // }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
     }
 }
 
