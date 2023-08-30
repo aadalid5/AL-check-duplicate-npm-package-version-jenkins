@@ -7,7 +7,7 @@ pipeline {
         stage ('install') {
             steps {
                 sh 'node -v'
-                echo "${env.test}"
+                echo "${env.test1}"
             }
         }
 
