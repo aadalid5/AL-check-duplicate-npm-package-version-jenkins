@@ -13,7 +13,8 @@ pipeline {
                         echo "${npm_token}"
                     }
                     def token = 'a123532='
-                    echo "asdfdd\${token}"
+                    echo "${token}"
+                    echo "asdfdd \$token"
                 }
                 
             }
