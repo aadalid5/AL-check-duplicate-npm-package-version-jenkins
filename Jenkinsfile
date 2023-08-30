@@ -7,7 +7,10 @@ pipeline {
         stage ('install') {
             steps {
                 sh 'node -v'
-                echo {env.test1}
+                echo "${env.test1}"
+                withCredentials([string(credentialsId: 'secret_id', variable: 'npm_token')]) {
+                    echo "${npm_token}"
+                }
             }
         }
 
