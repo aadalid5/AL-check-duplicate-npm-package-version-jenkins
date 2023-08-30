@@ -9,7 +9,8 @@ pipeline {
                 sh 'node -v'
                 echo "${env.test1}"
                 withCredentials([string(credentialsId: 'secret_id', variable: 'npm_token')]) {
-                    echo "${npm_token}"
+                    sh "touch file.txt"
+                    sh "echo '\${npm_token}' >> file.txt"
                 }
             }
         }
