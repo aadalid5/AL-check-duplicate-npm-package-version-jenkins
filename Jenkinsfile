@@ -15,6 +15,9 @@ pipeline {
                     def token = 'a123532='
                     echo "${token}"
                     echo "asdfdd \$token"
+                    sh "touch .npmrc"
+                    sh "echo '//ae-qa-nexus-app01:8081/content/groups/npm-all/:_auth=\${NPM_TOKEN}' >> .npmrc"
+                    sh "cat .npmrc"
                 }
                 
             }
