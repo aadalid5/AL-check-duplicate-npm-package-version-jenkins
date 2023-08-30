@@ -10,33 +10,33 @@ pipeline {
             }
         }
 
-        stage('publish') {
-            steps {
-                script {
-                        sh "npm whoami"
+        // stage('publish') {
+        //     steps {
+        //         script {
+        //                 sh "npm whoami"
 
-                        newVersion = generateReleaseVersion("pr")
-                        sh "npm pkg set version=${newVersion}"
+        //                 newVersion = generateReleaseVersion("pr")
+        //                 sh "npm pkg set version=${newVersion}"
 
-                        if (!isVersionDuplicated()){
-                            try{
-                                sh "npm publish"
-                            }catch(error){
-                                sh "echo 'DEPLOY ABORTED WITH ERROR' ${error}"
-                            }
-                        } else {
-                            sh "echo '**PUBLISHIN SKIPPED** REASON: Version ${newVersion} already exists '"
-                        }
+        //                 if (!isVersionDuplicated()){
+        //                     try{
+        //                         sh "npm publish"
+        //                     }catch(error){
+        //                         sh "echo 'DEPLOY ABORTED WITH ERROR' ${error}"
+        //                     }
+        //                 } else {
+        //                     sh "echo '**PUBLISHIN SKIPPED** REASON: Version ${newVersion} already exists '"
+        //                 }
                         
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
 
-        stage('post'){
-            steps {
-                sh "echo 'postmessage'"
-            }
-        }
+        // stage('post'){
+        //     steps {
+        //         sh "echo 'postmessage'"
+        //     }
+        // }
     }
 }
 
