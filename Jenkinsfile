@@ -9,9 +9,9 @@ pipeline {
                 script {
                     sh 'node -v'
                     echo "${env.test1}"
-                    withCredentials([string(credentialsId: 'secret_id', variable: 'npm_token')]) {
-                        echo "${npm_token}"
-                    }
+                    // withCredentials([string(credentialsId: 'secret_id', variable: 'npm_token')]) {
+                    //     echo "${npm_token}"
+                    // }
                     def token = 'a123532='
                     echo "${token}"
                     echo "asdfdd \$token"
