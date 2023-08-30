@@ -23,6 +23,8 @@ pipeline {
 
                     sh "echo '//ae-qa-nexus-app01:8081/content/groups/npm-all/:_auth=${token}' >> file.txt"
                     sh "cat file.txt"
+
+                    cleanNpmrc()
                 }
                 
             }
@@ -62,6 +64,10 @@ pipeline {
             cleanWs()
         }
     }
+}
+
+def cleanNpmrc() {
+    sh "sed -i '2d' .npmrc "
 }
 
 def generateReleaseVersion(type) {
