@@ -16,8 +16,10 @@ pipeline {
                     echo "${token}"
                     echo "asdfdd \$token"
                     sh "touch .npmrc"
-                    sh "echo '//ae-qa-nexus-app01:8081/content/groups/npm-all/:_auth=\${NPM_TOKEN}' >> .npmrc"
-                    sh "cat .npmrc"
+                    
+                    def username = 'Jenkins'
+                    echo 'Hello Mr. ${username}'
+                    echo "I said, Hello Mr. ${username}"
                 }
                 
             }
