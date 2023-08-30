@@ -25,6 +25,8 @@ pipeline {
                     sh "cat file.txt"
 
                     cleanNpmrc()
+
+                    sh "cat file.txt"
                 }
                 
             }
